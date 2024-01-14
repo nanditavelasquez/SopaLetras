@@ -7,7 +7,7 @@
   *
   * @api private
   */
-  var WordFindGame = function() {
+  var WordFindGame = function () {
 
     var wordList;
 
@@ -16,21 +16,21 @@
     * @param {[[String]]} 
     */
     var drawPuzzle = function (el, puzzle) {
-      
+
       var output = '';
-      
+
       for (var i = 0, height = puzzle.length; i < height; i++) {
-        
+
         var row = puzzle[i];
         output += '<div>';
-       
+
         for (var j = 0, width = row.length; j < width; j++) {
-            
-            output += '<button class="puzzleSquare" x="' + j + '" y="' + i + '">';
-            output += row[j] || '&nbsp;';
-            output += '</button>';
+
+          output += '<button class="puzzleSquare" x="' + j + '" y="' + i + '">';
+          output += row[j] || '&nbsp;';
+          output += '</button>';
         }
-        
+
         output += '</div>';
       }
 
@@ -42,7 +42,7 @@
     * @param {[String]} 
     */
     var drawWords = function (el, words) {
-      
+
       var output = '<ul>';
       for (var i = 0, len = words.length; i < len; i++) {
         var word = words[i];
@@ -63,12 +63,12 @@
     };
 
     var select = function (target) {
-     
+
       if (!startSquare) {
         return;
       }
 
-      var lastSquare = selectedSquares[selectedSquares.length-1];
+      var lastSquare = selectedSquares[selectedSquares.length - 1];
       if (lastSquare == target) {
         return;
       }
@@ -76,23 +76,23 @@
       var backTo;
       for (var i = 0, len = selectedSquares.length; i < len; i++) {
         if (selectedSquares[i] == target) {
-          backTo = i+1;
+          backTo = i + 1;
           break;
         }
       }
 
       while (backTo < selectedSquares.length) {
-        $(selectedSquares[selectedSquares.length-1]).removeClass('selected');
-        selectedSquares.splice(backTo,1);
-        curWord = curWord.substr(0, curWord.length-1);
+        $(selectedSquares[selectedSquares.length - 1]).removeClass('selected');
+        selectedSquares.splice(backTo, 1);
+        curWord = curWord.substr(0, curWord.length - 1);
       }
 
       var newOrientation = calcOrientation(
-          $(startSquare).attr('x')-0,
-          $(startSquare).attr('y')-0,
-          $(target).attr('x')-0,
-          $(target).attr('y')-0
-          );
+        $(startSquare).attr('x') - 0,
+        $(startSquare).attr('y') - 0,
+        $(target).attr('x') - 0,
+        $(target).attr('y') - 0
+      );
 
       if (newOrientation) {
         selectedSquares = [startSquare];
@@ -105,11 +105,11 @@
       }
 
       var orientation = calcOrientation(
-          $(lastSquare).attr('x')-0,
-          $(lastSquare).attr('y')-0,
-          $(target).attr('x')-0,
-          $(target).attr('y')-0
-          );
+        $(lastSquare).attr('x') - 0,
+        $(lastSquare).attr('y') - 0,
+        $(target).attr('x') - 0,
+        $(target).attr('y') - 0
+      );
 
       if (!orientation) {
         return;
@@ -121,15 +121,17 @@
       }
 
     };
-    
-    var touchMove = function(e) {
+
+    var touchMove = function (e) {
+      e.preventDefault(); // Prevenir el comportamiento predeterminado de desplazamiento
       var xPos = e.originalEvent.touches[0].pageX;
       var yPos = e.originalEvent.touches[0].pageY;
       var targetElement = document.elementFromPoint(xPos, yPos);
-      select(targetElement)
+      select(targetElement);
     };
-    
-    var mouseMove = function() { 
+
+
+    var mouseMove = function () {
       select(this);
     };
 
@@ -152,10 +154,10 @@
     var endTurn = function () {
 
       for (var i = 0, len = wordList.length; i < len; i++) {
-        
+
         if (wordList[i] === curWord) {
           $('.selected').addClass('found');
-          wordList.splice(i,1);
+          wordList.splice(i, 1);
           $('.' + curWord).addClass('wordFound');
         }
 
@@ -199,8 +201,8 @@
       * @param {String} 
       * @param {Options} 
       */
-      create: function(words, puzzleEl, wordsEl, options) {
-        
+      create: function (words, puzzleEl, wordsEl, options) {
+
         wordList = words.slice(0).sort();
 
         var puzzle = wordfind.newPuzzle(words, options);
@@ -229,16 +231,16 @@
       * @param {[[String]]} 
       * @param {[String]} 
       */
-      solve: function(puzzle, words) {
+      solve: function (puzzle, words) {
 
         var solution = wordfind.solve(puzzle, words).found;
 
-        for( var i = 0, len = solution.length; i < len; i++) {
+        for (var i = 0, len = solution.length; i < len; i++) {
           var word = solution[i].word,
-              orientation = solution[i].orientation,
-              x = solution[i].x,
-              y = solution[i].y,
-              next = wordfind.orientations[orientation];
+            orientation = solution[i].orientation,
+            x = solution[i].x,
+            y = solution[i].y,
+            next = wordfind.orientations[orientation];
 
           if (!$('.' + word).hasClass('wordFound')) {
             for (var j = 0, size = word.length; j < size; j++) {
