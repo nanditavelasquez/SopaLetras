@@ -70,7 +70,7 @@ button::-moz-focus-inner {
 #solve {
   margin: 0 30px;
   border-radius: 5px;
-  padding: 5px;
+  padding: 10px;
   border: 0px;
   background: #2c3e50;
   position: inherit;
