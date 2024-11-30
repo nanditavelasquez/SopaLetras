@@ -1,6 +1,8 @@
 # Juego de Sopa de Letras
 
-¡Bienvenido al juego de sopa de letras! Este es un proyecto simple desarrollado con HTML, CSS y JavaScript. El objetivo del juego es encontrar todas las palabras ocultas en la cuadrícula.
+ <div align="center">
+   <img src="IMG/sopaletras.jpg" width="489" height="421">
+</div>
 
 ## Características
 
