@@ -2,31 +2,31 @@
 <html>
 
 <head>
-  <title>Sopa de letras</title>
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Sopa de Letras - Prueba</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+  <script src="wordfind.js"></script>
+  <script src="wordfindgame.js"></script>
+   
   <link rel="stylesheet" type="text/css" href="css/style.css">
-  <script language="javascript" type="text/javascript"
-    src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-  <script type="text/javascript" src="js/wordfind.js"></script>
-  <script type="text/javascript" src="js/wordfindgame.js"></script>
 </head>
 
 <body>
+  <div id="juego"></div>
+  <div id="Palabras"></div>
+  <button id="solve">Resolver</button>
 
-  <div id='juego'></div>
-  <div id='Palabras'></div>
-
-  <div><button id='solve'>Resolver el juego</button></div>
   <script>
-    var words = ['Amígdala', 'Axón', 'Cerebelo', 'Dendrita', 'Encéfalo', 'Hemisferio', 'Hipocampo',
-      'Lóbulo', 'Neurona', 'Tálamo', 'Sinapsis', 'Hipófosis', 'Glía'];
-    var gamePuzzle = wordfindgame.create(words, '#juego', '#Palabras');
+    document.addEventListener("DOMContentLoaded", function () {
+      const words = ["Amigdala", "Axon", "Cerebelo", "Neurona", "Talamo", "Dendrita", "Encefalo", "Hemisferio", "Hipocampo", "Lobulo", "Hipofosis"];
+      const gamePuzzle = wordfindgame.create(words, "#juego", "#Palabras");
 
-    var puzzle = wordfind.newPuzzle(words, { height: 18, width: 18, fillBlanks: false });
-    wordfind.print(puzzle);
-
-    $('#solve').click(function () { wordfindgame.solve(gamePuzzle, words); });
-
+      document.getElementById("solve").addEventListener("click", function () {
+        wordfindgame.solve(gamePuzzle, words);
+      });
+    });
   </script>
 </body>
 
